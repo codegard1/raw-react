@@ -1,0 +1,66 @@
+.ContactView {
+    border: 1px solid gold;
+    background-color: ghostwhite;
+    display: block;
+    max-width: 400px;
+    padding: 1em;
+    box-shadow: 2px 3px 20px  #999;
+}
+
+.ContactView-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555;
+    font-size: 3em;
+}
+
+.ContactView-list {
+    list-style: none;
+}
+
+.ContactItem {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.ContactItem-name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555;
+    font-size: 2em;
+    margin: 0;
+}
+
+.ContactItem-email {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-size: 1em;
+    color: salmon;
+    text-decoration: none;
+}
+
+.ContactItem-description {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+}
+
+.ContactForm {
+    border: 1px solid cadetblue;
+    padding: 0.5em;
+}
+
+.ContactForm-name,.ContactForm-email,.ContactForm-description,.ContactForm-button {
+    display: block;
+    margin:5px;
+    width:90%;
+}
+
+.ContactForm-email {
+    
+}
+
+.ContactForm-description {
+
+}
+
+.ContactForm-button {
+
+}
