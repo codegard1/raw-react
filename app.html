@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>I'm a React App</title>
     <link rel="stylesheet" type="text/css" href="app.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/office-ui-fabric-core/dist/css/fabric.min.css" />
 </head>
 
 <body>
@@ -14,30 +15,31 @@
     <script src="https://cdn.jsdelivr.net/react/0.14.0-rc1/react-dom.js"></script>
     <script type="text/javascript">
         var contacts = [{
-            key: 1,
-            name: "Chris Odegard",
-            email: "chris@chrisco.com",
-            description: "Bleep blorp"
-        }, {
-            key: 2,
-            name: "Bunna Kanna Gakka Klang",
-            email: "bunnakanna@zipzoop.net"
-        }, {
-            key: 3,
-            name: "Joe"
-        }, 
-        {
-            key:4,
-            name:'Booznorch McGorch',
-            email: 'booznorch@mcGorch.org',
-            description: 'The one and only'
-        },
-        {
-            key:5,
-            name:'Phil Lepton',
-            email: 'phill@mscdeufpaka.edu',
-            description: 'In lamens terms I\'m the particle czar'
-        }];
+                key: 1,
+                name: "Chris Odegard",
+                email: "chris@chrisco.com",
+                description: "Bleep blorp"
+            }, {
+                key: 2,
+                name: "Bunna Kanna Gakka Klang",
+                email: "bunnakanna@zipzoop.net"
+            }, {
+                key: 3,
+                name: "Joe"
+            },
+            {
+                key: 4,
+                name: 'Booznorch McGorch',
+                email: 'booznorch@mcGorch.org',
+                description: 'The one and only'
+            },
+            {
+                key: 5,
+                name: 'Phil Lepton',
+                email: 'phill@mscdeufpaka.edu',
+                description: 'In lamens terms I\'m the particle czar'
+            }
+        ];
 
         var newContact = {
             name: "",
@@ -47,7 +49,8 @@
 
         var ContactForm = React.createClass({
             propTypes: {
-                contact: React.PropTypes.object.isRequired
+                contact: React.PropTypes.object.isRequired,
+                onChange: React.PropTypes.func.isRequired
             },
             render: function () {
                 return (
@@ -84,7 +87,7 @@
             propTypes: {
                 name: React.PropTypes.string.isRequired,
                 email: React.PropTypes.string.isRequired,
-                description: React.PropTypes.string.isRequired
+                //description: React.PropTypes.string.isRequired
             },
             render: function () {
                 return (
@@ -130,7 +133,10 @@
                             className: 'ContactView-list'
                         }, contactItemElements),
                         React.createElement(ContactForm, {
-                            contact: this.props.newContact
+                            contact: this.props.newContact,
+                            /*onChange: function (contact) {
+                                console.log(contact);
+                            }*/
                         })
                     )
                 );
@@ -146,10 +152,23 @@
             });
 
         var rootElement =
-            React.createElement(ContactView, {
-                contacts: contacts,
-                newContact: newContact
-            });
+            React.createElement('div', {
+                    className: 'ms-Grid'
+                },
+                React.createElement('div', {
+                        className: 'ms-Grid-row'
+                    },
+                    React.createElement('div', {
+                            className: 'ms-Grid-col ms-u-sm12'
+                        },
+                        React.createElement(ContactView, {
+                            contacts: contacts,
+                            newContact: newContact
+                        })
+                    )
+                )
+            );
+
 
         ReactDOM.render(rootElement, document.getElementById('react-app'));
     </script>
