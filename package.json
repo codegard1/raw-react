@@ -1,0 +1,19 @@
+{
+  "name": "raw-react",
+  "version": "1.0.0",
+  "description": "following along with a 'raw' react tutorial",
+  "main": "app.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codegard1/raw-react.git"
+  },
+  "author": "'Chris <'C.Odegard@gmail.com'>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codegard1/raw-react/issues"
+  },
+  "homepage": "https://github.com/codegard1/raw-react#readme"
+}
