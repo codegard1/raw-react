@@ -1,27 +1,27 @@
 /* Polyfill */
 if (typeof Object.assign != 'function') {
-  Object.assign = function(target, varArgs) { // .length of function is 2
-    'use strict';
-    if (target == null) { // TypeError if undefined or null
-      throw new TypeError('Cannot convert undefined or null to object');
-    }
-
-    var to = Object(target);
-
-    for (var index = 1; index < arguments.length; index++) {
-      var nextSource = arguments[index];
-
-      if (nextSource != null) { // Skip over if undefined or null
-        for (var nextKey in nextSource) {
-          // Avoid bugs when hasOwnProperty is shadowed
-          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-            to[nextKey] = nextSource[nextKey];
-          }
+    Object.assign = function (target, varArgs) { // .length of function is 2
+        'use strict';
+        if (target == null) { // TypeError if undefined or null
+            throw new TypeError('Cannot convert undefined or null to object');
         }
-      }
-    }
-    return to;
-  };
+
+        var to = Object(target);
+
+        for (var index = 1; index < arguments.length; index++) {
+            var nextSource = arguments[index];
+
+            if (nextSource != null) { // Skip over if undefined or null
+                for (var nextKey in nextSource) {
+                    // Avoid bugs when hasOwnProperty is shadowed
+                    if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                        to[nextKey] = nextSource[nextKey];
+                    }
+                }
+            }
+        }
+        return to;
+    };
 }
 
 /* contacts is passed to rootElement */
@@ -87,6 +87,8 @@ var ContactView = React.createClass({
                     value: this.props.newContact,
                     onChange: function (contact) {
                         console.log(contact);
+                    },
+                    onContactChange: function () {
                     }
                 })
             )
@@ -114,7 +116,9 @@ var ContactForm = React.createClass({
                     value: this.props.value.name,
                     className: 'ContactForm-name',
                     onChange: function (e) {
-                        onChange()
+                        onChange(Object.assign({}, oldContact, {
+                            name: e.target.value
+                        }));
                     }
                 }),
                 React.createElement('input', {
@@ -122,13 +126,21 @@ var ContactForm = React.createClass({
                     placeholder: 'Email (Required)',
                     value: this.props.value.email,
                     className: 'ContactForm-email',
-                    onChange: this.props.onChange
+                    onChange: function (e) {
+                        onChange(Object.assign({}, oldContact, {
+                            email: e.target.value
+                        }));
+                    }
                 }),
                 React.createElement('textarea', {
                     placeholder: 'Description',
                     value: this.props.value.description,
                     className: 'ContactForm-description',
-                    onChange: this.props.onChange
+                    onChange: function (e) {
+                        onChange(Object.assign({}, oldContact, {
+                            description: e.target.value
+                        }));
+                    }
                 }),
                 React.createElement('button', {
                     type: 'submit',
