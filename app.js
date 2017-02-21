@@ -58,10 +58,10 @@ var ContactView = React.createClass({
                     className: 'ContactView-list'
                 }, contactItemElements),
                 React.createElement(ContactForm, {
-                    contact: this.props.newContact,
-                    /*onChange: function (contact) {
+                    value: this.props.newContact,
+                    onChange: function (contact) {
                         console.log(contact);
-                    }*/
+                    }
                 })
             )
         );
@@ -71,10 +71,13 @@ var ContactView = React.createClass({
 /* ContactForm */
 var ContactForm = React.createClass({
     propTypes: {
-        contact: React.PropTypes.object.isRequired,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.object.isRequired
     },
     render: function () {
+        var oldContact = this.props.value;
+        var onChange = this.props.onChange;
+
         return (
             React.createElement('form', {
                     className: 'ContactForm'
@@ -82,19 +85,24 @@ var ContactForm = React.createClass({
                 React.createElement('input', {
                     type: 'text',
                     placeholder: 'Name (Required)',
-                    value: this.props.contact.name,
-                    className: 'ContactForm-name'
+                    value: this.props.value.name,
+                    className: 'ContactForm-name',
+                    onChange: function(e) {
+                        onChange()
+                    }
                 }),
                 React.createElement('input', {
                     type: 'email',
                     placeholder: 'Email (Required)',
-                    value: this.props.contact.email,
-                    className: 'ContactForm-email'
+                    value: this.props.value.email,
+                    className: 'ContactForm-email',
+                    onChange: this.props.onChange
                 }),
                 React.createElement('textarea', {
                     placeholder: 'Description',
-                    value: this.props.contact.description,
-                    className: 'ContactForm-description'
+                    value: this.props.value.description,
+                    className: 'ContactForm-description',
+                    onChange: this.props.onChange
                 }),
                 React.createElement('button', {
                     type: 'submit',
@@ -140,7 +148,9 @@ var rootElement =
         React.createElement('div', {
                 className: 'ms-Grid-row'
             },
-            React.createElement('div', {className: 'ms-Grid-col ms-u-sm1'}),
+            React.createElement('div', {
+                className: 'ms-Grid-col ms-u-sm1'
+            }),
             React.createElement('div', {
                     className: 'ms-Grid-col ms-u-sm10'
                 },
@@ -149,7 +159,9 @@ var rootElement =
                     newContact: newContact
                 })
             ),
-            React.createElement('div', {className: 'ms-Grid-col ms-u-sm1'})
+            React.createElement('div', {
+                className: 'ms-Grid-col ms-u-sm1'
+            })
         )
     );
 
