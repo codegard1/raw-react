@@ -1,64 +1,3 @@
-/* Polyfill */
-if (typeof Object.assign != 'function') {
-    Object.assign = function (target, varArgs) { // .length of function is 2
-        'use strict';
-        if (target == null) { // TypeError if undefined or null
-            throw new TypeError('Cannot convert undefined or null to object');
-        }
-
-        var to = Object(target);
-
-        for (var index = 1; index < arguments.length; index++) {
-            var nextSource = arguments[index];
-
-            if (nextSource != null) { // Skip over if undefined or null
-                for (var nextKey in nextSource) {
-                    // Avoid bugs when hasOwnProperty is shadowed
-                    if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-                        to[nextKey] = nextSource[nextKey];
-                    }
-                }
-            }
-        }
-        return to;
-    };
-}
-
-/* contacts is passed to rootElement */
-var contacts = [{
-        key: 1,
-        name: "Chris Odegard",
-        email: "chris@chrisco.com",
-        description: "Bleep blorp"
-    }, {
-        key: 2,
-        name: "Bunna Kanna Gakka Klang",
-        email: "bunnakanna@zipzoop.net"
-    }, {
-        key: 3,
-        name: "Joe"
-    },
-    {
-        key: 4,
-        name: 'Booznorch McGorch',
-        email: 'booznorch@mcGorch.org',
-        description: 'The one and only'
-    },
-    {
-        key: 5,
-        name: 'Phil Lepton',
-        email: 'phill@mscdeufpaka.edu',
-        description: 'In lamens terms I\'m the particle czar'
-    }
-];
-
-/* newContact is passed to ContactView */
-var newContact = {
-    name: "",
-    email: "",
-    description: ""
-}
-
 /* ContactView is parent of ContactItem & ContactForm */
 var ContactView = React.createClass({
     propTypes: {
@@ -66,6 +5,7 @@ var ContactView = React.createClass({
         newContact: React.PropTypes.object.isRequired
     },
     render: function () {
+        // Construct an array of ContactItems from the contacts array
         var contactItemElements = this.props.contacts
             .filter(function (contact) {
                 return contact.email
@@ -88,15 +28,14 @@ var ContactView = React.createClass({
                     onChange: function (contact) {
                         console.log(contact);
                     },
-                    onContactChange: function () {
-                    }
+                    onContactChange: function () {}
                 })
             )
         );
     }
 });
 
-/* ContactForm */
+/* ContactForm is a child of ContactView */
 var ContactForm = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
@@ -118,7 +57,8 @@ var ContactForm = React.createClass({
                     onChange: function (e) {
                         onChange(Object.assign({}, oldContact, {
                             name: e.target.value
-                        }));
+                        }
+                        ));
                     }
                 }),
                 React.createElement('input', {
@@ -178,6 +118,41 @@ var ContactItem = React.createClass({
     }
 });
 
+/* contacts is passed to ContactView in rootElement */
+var contacts = [{
+        key: 1,
+        name: "Chris Odegard",
+        email: "chris@chrisco.com",
+        description: "Bleep blorp"
+    }, {
+        key: 2,
+        name: "Bunna Kanna Gakka Klang",
+        email: "bunnakanna@zipzoop.net"
+    }, {
+        key: 3,
+        name: "Joe"
+    },
+    {
+        key: 4,
+        name: 'Booznorch McGorch',
+        email: 'booznorch@mcGorch.org',
+        description: 'The one and only'
+    },
+    {
+        key: 5,
+        name: 'Phil Lepton',
+        email: 'phill@mscdeufpaka.edu',
+        description: 'In lamens terms I\'m the particle czar'
+    }
+];
+
+/* newContact is passed to ContactView in rootElement */
+var newContact = {
+    name: "",
+    email: "",
+    description: ""
+}
+
 /* props: contacts, newContact */
 var rootElement =
     React.createElement('div', {
@@ -187,10 +162,10 @@ var rootElement =
                 className: 'ms-Grid-row'
             },
             React.createElement('div', {
-                className: 'ms-Grid-col ms-u-sm1'
+                className: 'ms-Grid-col ms-u-sm1 ms-u-md2'
             }),
             React.createElement('div', {
-                    className: 'ms-Grid-col ms-u-sm10'
+                    className: 'ms-Grid-col ms-u-sm10 ms-u-md8'
                 },
                 React.createElement(ContactView, {
                     contacts: contacts,
@@ -198,7 +173,7 @@ var rootElement =
                 })
             ),
             React.createElement('div', {
-                className: 'ms-Grid-col ms-u-sm1'
+                className: 'ms-Grid-col ms-u-sm1 ms-u-md2'
             })
         )
     );
