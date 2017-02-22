@@ -1,10 +1,9 @@
 /* ContactForm is a child of ContactView */
 var ContactForm = React.createClass({
     propTypes: {
-        onChange: React.PropTypes.func.isRequired,
-        onContactChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.object.isRequired,
-        onSubmit: React.PropTypes.func.isRequired
+        onSubmit: React.PropTypes.func.isRequired,
+        onChange: React.PropTypes.func.isRequired
     },
 
     onNameInput: function (e) {

@@ -3,15 +3,11 @@ var ContactView = React.createClass({
     propTypes: {
         contacts: React.PropTypes.array.isRequired,
         newContact: React.PropTypes.object.isRequired,
-        onChange: React.PropTypes.func.isRequired,
-        onContactChange: React.PropTypes.func.isRequired
+        onNewContactChange: React.PropTypes.func.isRequired
     },
     render: function () {
         // Construct an array of ContactItems from the contacts array
         var contactItemElements = this.props.contacts
-            .filter(function (contact) {
-                return contact.email
-            })
             .map(function (contact) {
                 return React.createElement(ContactItem, contact)
             });
@@ -27,8 +23,10 @@ var ContactView = React.createClass({
                 }, contactItemElements),
                 React.createElement(ContactForm, {
                     value: this.props.newContact,
-                    onChange: this.props.onChange,
-                    onContactChange: this.props.onContactChange
+                    onChange: this.props.onNewContactChange,
+                    onSubmit: function () {
+                        alert('submit!');
+                    }
                 })
             )
         );

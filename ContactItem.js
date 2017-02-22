@@ -3,9 +3,13 @@ var ContactItem = React.createClass({
     propTypes: {
         name: React.PropTypes.string.isRequired,
         email: React.PropTypes.string.isRequired,
-        //description: React.PropTypes.string.isRequired
+        description: React.PropTypes.string.isRequired
     },
     render: function () {
+
+        var emailDisplay = (this.props.email == undefined ? 'No email' : this.props.email);
+        var description = this.props.description == undefined ? 'No description' : this.props.description;
+
         return (
             React.createElement('li', {
                     className: 'ContactItem'
@@ -15,11 +19,11 @@ var ContactItem = React.createClass({
                 }, this.props.name),
                 React.createElement('a', {
                     className: 'ContactItem-email',
-                    href: "mailto:" + this.props.email
-                }, this.props.email),
+                    href: (this.props.email == undefined ? '#' : "mailto:" + emailDisplay)
+                }, emailDisplay),
                 React.createElement('p', {
                     className: 'ContactItem-description'
-                }, this.props.description)
+                }, description)
             )
         );
     }
