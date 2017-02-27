@@ -26,7 +26,7 @@ var ContactForm = React.createClass({
 
     onSubmit: function (e) {
         e.preventDefault();
-        this.props.onSubmit()
+        this.props.onSubmit();
     },
 
 

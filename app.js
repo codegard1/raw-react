@@ -18,11 +18,12 @@ function setState(changes) {
                     },
                     React.createElement(ContactView, Object.assign({}, state, {
                         onNewContactChange: updateNewContact,
+                        onNewContactSubmit: submitNewContact
                     })),
                     React.createElement('div', {
                         className: 'ms-Grid-col ms-u-sm1 ms-u-md2'
                     })
-                ) 
+                )
             ) // end ms-Grid-row
         ),
         document.getElementById('react-app')
@@ -34,6 +35,30 @@ function updateNewContact(contact) {
     setState({
         newContact: contact
     });
+}
+
+var CONTACT_TEMPLATE = {
+    name: "",
+    email: "",
+    description: "",
+    errors: null
+};
+
+function submitNewContact() {
+    var contact = Object.assign({}, state.newContact, {
+        key: state.contacts.length + 1,
+        errors: {}
+    });
+    if (contact.name && contact.email) {
+        setState(
+            Object.keys(contact.errors).length === 0 ? {
+                newContact: Object.assign({}, CONTACT_TEMPLATE),
+                contacts: state.contacts.slice(0).concat(contact)
+            } : {
+                newContact: contact
+            }
+        );
+    }
 }
 
 // Set initial data
@@ -65,9 +90,5 @@ setState({
             description: 'In lamens terms I\'m the particle czar'
         }
     ],
-    newContact: {
-        name: "",
-        email: "",
-        description: ""
-    },
+    newContact: Object.assign({}, CONTACT_TEMPLATE)
 });
