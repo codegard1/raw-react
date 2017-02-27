@@ -31,8 +31,7 @@ var ContactForm = React.createClass({
 
 
     render: function () {
-        var oldContact = this.props.value;
-        var onChange = this.props.onChange;
+        var errors = this.props.value.errors || {};
 
         return (
             React.createElement('form', {
@@ -44,26 +43,29 @@ var ContactForm = React.createClass({
                     type: 'text',
                     placeholder: 'Name (Required)',
                     value: this.props.value.name,
-                    className: 'ContactForm-name',
+                    className: errors.name && 'ContactForm-error',
                     onInput: this.onNameInput,
                 }),
                 React.createElement('input', {
                     type: 'email',
                     placeholder: 'Email (Required)',
                     value: this.props.value.email,
-                    className: 'ContactForm-email',
+                    className: errors.email && 'ContactForm-error',
                     onInput: this.onEmailInput
                 }),
                 React.createElement('textarea', {
                     placeholder: 'Description',
                     value: this.props.value.description,
-                    className: 'ContactForm-description',
+                    className: errors.description && 'ContactForm-error',
                     onInput: this.onDescriptionInput
                 }),
                 React.createElement('button', {
                     type: 'submit',
                     className: 'ContactForm-button'
-                }, 'Add contact')
+                }, 'Add contact'),
+                React.createElement('p', {
+                    className: 'ContactForm-errorMessage'
+                }, errors.name && errors.name[0])
             )
         );
     }

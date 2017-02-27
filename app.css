@@ -4,7 +4,7 @@
     display: block;
     /*max-width: 400px;*/
     padding: 1em;
-    box-shadow: 2px 3px 20px  #999;
+    box-shadow: 2px 3px 20px #999;
 }
 
 .ContactView-title {
@@ -47,20 +47,12 @@
     padding: 0.5em;
 }
 
-.ContactForm-name,.ContactForm-email,.ContactForm-description,.ContactForm-button {
+.ContactForm input, .ContactForm textarea, .ContactForm button {
     display: block;
-    margin:5px;
-    width:90%;
+    margin: 5px;
+    width: 90%;
 }
 
-.ContactForm-email {
-    
-}
-
-.ContactForm-description {
-
-}
-
-.ContactForm-button {
-
+.ContactForm-error {
+    border: 1px solid salmon;
 }
