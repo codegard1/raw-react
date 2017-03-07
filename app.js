@@ -45,6 +45,7 @@ var CONTACT_TEMPLATE = {
 };
 
 function submitNewContact() {
+    console.log('App.js: submitNewContact()', state.newContact);
     var contact = Object.assign({}, state.newContact, {
         key: state.contacts.length + 1,
         errors: {}
@@ -53,7 +54,7 @@ function submitNewContact() {
         contact.errors.name = ["Please enter your new contact's name"];
     }
     if (!/.+@.+\..+/.test(contact.email)) {
-        contact.errors.email = ["Please enter your new contact's email"]
+        contact.errors.email = ["Please enter your new contact's email"];
     }
     setState(
         Object.keys(contact.errors).length === 0 ? {
